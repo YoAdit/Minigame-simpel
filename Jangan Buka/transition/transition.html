@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="transition-container">
+        <div class="player-level">
+            <div class="player-icon">👤</div>
+            <div class="level-text">Stage <span id="level">1</span></div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                window.location.href = "../Stage1/Stage1.html"; 
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

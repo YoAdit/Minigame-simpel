@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1 id="result"></h1>
+            <h1 id="additional-message"></h1>
+            <p>Terima kasih sudah bermain!</p>
+            <button onclick="window.location.href='../../Index.html'">Kembali ke Halaman Utama</button>
+        </div>
+    </div>
+    <audio id="win-audio" autoplay>
+        <source src="../BG Music/win.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="lose-audio">
+        <source src="../BG Music/lose.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        // Get the result from URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const result = params.get('result');
+        // Set text content based on the result
+        const resultText = result === 'win' ? '🏆 Selamat kamu Menang 🏆' : 'Game Over 🌾💀🌾';
+        const messageText = result === 'win' ? '🌼 Kedamaian telah kembali ke negeri tersebut 🌼' : '';
+        document.getElementById('result').textContent = resultText;
+        // If it's a win, display additional message
+        if (result === 'win') {
+            const additionalMessage = document.getElementById('additional-message');
+            additionalMessage.textContent = messageText;
+        }
+
+        // Play appropriate sound based on result
+        const winAudio = document.getElementById('win-audio');
+        const loseAudio = document.getElementById('lose-audio');
+        if (result === 'win') {
+            loseAudio.pause(); // Pause lose audio
+            winAudio.play();
+        } else {
+            winAudio.pause(); // Pause win audio
+            loseAudio.play();
+        }
+    </script>
+</body>
+</html>

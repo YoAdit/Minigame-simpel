@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniGame Simpel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Mengambil Font Awesome CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo-container"><img src="Judul_Game.png" alt="MiniGame Simpel" class="logo"></h1>
+        <button onclick="toggleBackgroundMusic()" class="sound-control">
+            <i class="fas fa-volume-up"></i> <!-- Menggunakan ikon dari Font Awesome -->
+        </button>
+        <div class="start-game" onclick="startGame()">Mulai Game</div>
+    </div>
+    <div class="credit">Dibuat oleh Aditya Evan Pradana</div>
+
+    <audio id="background-music" src="Jangan Buka/BG Music/Main_Menu.mp3" loop></audio> <!-- Elemen audio untuk musik latar -->
+    <audio id="transition-sfx" src="Jangan Buka/BG Music/Transition.mp3"></audio> <!-- Elemen audio untuk SFX -->
+
+    <script>
+        // Fungsi untuk memutar atau menghentikan musik latar
+        function toggleBackgroundMusic() {
+            const backgroundMusic = document.getElementById('background-music');
+            const soundControl = document.querySelector('.sound-control');
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                soundControl.classList.add('active'); // Menambahkan kelas aktif untuk memberi efek visual
+            } else {
+                backgroundMusic.pause();
+                soundControl.classList.remove('active'); // Menghapus kelas aktif untuk memberi efek visual
+            }
+        }
+
+        // Fungsi untuk memulai permainan
+        function startGame() {
+            sessionStorage.setItem('musicPlayed', 'true');
+            const transitionSFX = document.getElementById('transition-sfx');
+            transitionSFX.play().catch((error) => {
+                console.error("SFX transition gagal diputar:", error);
+            });
+            setTimeout(() => {
+                window.location.href = 'Jangan Buka/Stage0/Stage0.html';
+            }, 500); // Menunggu 500ms sebelum berpindah halaman agar SFX dapat diputar
+        }
+
+        // Memastikan musik latar diputar kembali saat halaman dimuat ulang dari cache
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || sessionStorage.getItem('musicPlayed')) { // Halaman dimuat ulang dari cache atau musik sudah diputar sebelumnya
+                const backgroundMusic = document.getElementById('background-music');
+                backgroundMusic.play().catch((error) => {
+                    console.error("Musik latar gagal diputar:", error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
