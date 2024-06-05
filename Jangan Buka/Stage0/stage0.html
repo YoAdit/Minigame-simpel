@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        #pesan-container {
+            font-size: 32px;
+            text-align: center;
+            max-width: 80%;
+            white-space: pre-wrap;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .caret {
+            display: inline-block;
+            width: 6px;
+            height: 1em;
+            background-color: black;
+            vertical-align: middle;
+            animation: blink 1s step-start infinite;
+            border-radius: 2px;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        #skip-button {         
+          font-size: 1.5em;
+          margin: 0 10px;
+          padding: 10px;
+          background-color: white;
+          border: 2px solid black;
+          transition: background-color 0.3s, color 0.3s;
+          cursor: pointer;
+        }
+        #skip-button:hover {
+          background-color: black;
+          color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div id="pesan-container"><span class="caret"></span></div>
+<button id="skip-button">Skip</button>
+<audio id="background-music" src="../BG Music/BG_Stage1.mp3" loop></audio>
+<audio id="transition-sfx" src="../BG Music/Transition.mp3"></audio>
+<audio id="typing-sfx" src="suara ketikan.mp3"></audio>
+
+<script>
+const pesanContainer = document.getElementById('pesan-container');
+const caret = document.querySelector('.caret');
+const skipButton = document.getElementById('skip-button');
+const backgroundMusic = document.getElementById('background-music');
+const transitionSFX = document.getElementById('transition-sfx');
+const typingSFX = document.getElementById('typing-sfx');
+const teks = [
+    "🌳Pada suatu ketika di negeri yang jauh dan damai🌳",
+    "Muncul mahluk jahat bernama boss 👾",
+    "Mahluk itu membawa bencana ke negeri tersebut 🔥🐺🔥🔥🏠🔥",
+    "Dengan kekuatan kertas📃 batu🗿 dan gunting✂ yang tak terkalahkan",
+    "Dia berhasil mengalahkan semua pejuang hebat di negeri tersebut",
+    "Kaulah harapan terakhir kami,",
+    "Tolong kalahkan boss dan selamatkan negeri ini",
+    "Semoga keberuntungan selalu bersama mu pahlawan 👸"
+];
+
+let teksIndex = 0;
+let charIndex = 0;
+
+function ketikHuruf() {
+    if (charIndex < teks[teksIndex].length) {
+        pesanContainer.innerHTML = teks[teksIndex].substring(0, charIndex + 1) + '<span class="caret"></span>';
+        typingSFX.currentTime = 0;
+        typingSFX.play().catch((error) => {
+            console.error("SFX ketikan gagal diputar:", error);
+        });
+        charIndex++;
+    } else {
+        clearInterval(interval);
+        if (teksIndex < teks.length - 1) {
+            setTimeout(() => {
+                pesanContainer.innerHTML = '<span class="caret"></span>';
+                charIndex = 0;
+                teksIndex++;
+                interval = setInterval(ketikHuruf, 50);
+            }, 2000);
+        } else {
+            setTimeout(() => {
+                transitionSFX.play();
+                setTimeout(() => {
+                    window.location.href = "../transition/transition.html";
+                }, 500);
+            }, 2000);
+        }
+    }
+}
+
+let interval = setInterval(ketikHuruf, 50);
+
+skipButton.addEventListener('click', () => {
+    transitionSFX.play();
+    setTimeout(() => {
+        window.location.href = "../transition/transition.html"; 
+    }, 500);
+});
+
+window.addEventListener('load', () => {
+    // Putar musik latar tanpa jeda saat halaman dimuat
+    backgroundMusic.play().catch((error) => {
+        console.error("Musik latar gagal diputar:", error);
+    });
+});
+
+// Event listener untuk memainkan suara ketikan saat halaman dimuat
+window.addEventListener('load', () => {
+    ketikHuruf();
+});
+
+// Event listener untuk memainkan musik latar tanpa jeda saat musik telah siap untuk diputar
+backgroundMusic.addEventListener('canplay', () => {
+    backgroundMusic.play().catch((error) => {
+        console.error("Musik latar gagal diputar:", error);
+    });
+});
+</script>
+
+</body>
+</html>

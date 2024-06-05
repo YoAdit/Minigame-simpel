@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1 id="text-container"></h1>
+        </div>
+        <div class="main-game">
+            <div class="player">
+                <div class="health">❤️ x4</div>
+                <div class="player-icon">👤</div>
+                <div class="player-choice-box"><div class="player-choice"></div></div>
+            </div>
+            <div class="enemy">
+                <div class="health">❤️ x5</div>
+                <div class="enemy-icon">😈</div>
+                <div class="enemy-choice-box"><div class="enemy-choice"></div></div>
+            </div>
+        </div>
+        <div class="controls">
+            <button onclick="selectChoice('kertas')" id="kertas-btn">📄 Kertas</button>
+            <button onclick="selectChoice('batu')" id="batu-btn">🗿 Batu</button>
+            <button onclick="selectChoice('gunting')" id="gunting-btn">✂️ Gunting</button>
+        </div>
+        <button class="start-button" onclick="startBattle()">Start Battle</button>
+        <audio id="hurt-sound" src="../BG Music/Hurt.mp3"></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+</html>
