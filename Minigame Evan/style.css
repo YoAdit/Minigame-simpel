@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 400px;
+    height: auto;
+}
+
+.start-game {
+    margin-top: 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+    cursor: pointer;
+    animation: blink 1s infinite;
+    padding: 10px 20px;
+    color: white; /* Warna teks tombol */
+    background-color: black; /* Warna latar belakang tombol */
+    border: 2px solid black; /* Border hitam */
+    border-radius: 5px; /* Sudut membulat */
+    transition: background-color 0.3s, color 0.3s; /* Transisi warna */
+}
+
+.start-game:hover {
+    background-color: white;
+    color: black; /* Warna teks saat dihover */
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.credit {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.2em;
+}
+
+.sound-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: black;
+    border: none; /* Menghapus border */
+    border-radius: 50%; /* Membuat bentuk bulat */
+    cursor: pointer;
+    font-size: 1.5em; /* Mengatur ukuran ikon */
+    color: white; /* Warna ikon */
+    transition: background-color 0.3s; /* Transisi warna latar belakang */
+}
+
+.sound-control.active {
+    background-color: white; /* Warna latar belakang tombol saat aktif */
+    color: black; /* Warna ikon saat tombol aktif */
+}
